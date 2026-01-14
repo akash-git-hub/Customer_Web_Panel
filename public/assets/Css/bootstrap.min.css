@@ -14459,3 +14459,68 @@ input.chat-input {
     color: #f4b400;
     font-size: 14px;
 }
+
+.media-icon {
+    position: absolute;
+    z-index: 99;
+    top: 0px;
+    right: 10px;
+}
+
+.media-wrapper img {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.form-wrapper {
+  max-width: 760px;  
+  width: 100%;
+}
+
+.settings-panel {
+  background: #ffffff;
+  min-height: 100%;
+}
+
+.settings-item {
+  padding: 18px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.settings-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.settings-item:hover {
+  background: #fafafa;
+}
+
+.settings-icon {
+  width: 52px;
+  height: 52px;
+  background: #fff7e8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.notification-dropdown {
+  width: 320px;
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.notification-item {
+  padding: 10px 14px;
+}
+
+.notification-item:hover {
+  background: #f7f7f7;
+}

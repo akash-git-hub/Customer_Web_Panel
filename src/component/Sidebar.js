@@ -52,7 +52,7 @@ const Sidebar = () => {
       </div>
       <UserProfileCard
         user={{
-          avatar: "https://i.pravatar.cc/50",
+          avatar: "https://i.pravatar.cc/300?img=12",
           name: "Duane Dean",
           email: "TradieCustomer@gmail.com",
           address: "Ritter Street, Huntsville",
@@ -64,8 +64,8 @@ const Sidebar = () => {
         <Nav.Link
           onClick={() => handleLinkClick("/home")}
           className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/home"
-              ? "bg-warning text-white fw-semibold"
-              : "text-dark"
+            ? "bg-warning text-white fw-semibold"
+            : "text-dark"
             }`}
         >
           <HomeIcon color={pathname === "/home" ? "#fff" : "#292D32"} />
@@ -74,14 +74,14 @@ const Sidebar = () => {
 
         <Nav.Link
           onClick={() => handleLinkClick("/search_contractor")}
-          className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/search_contractor" || pathname === "/customer-profile"
-              ? "bg-warning text-white fw-semibold"
-              : "text-dark"
+          className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/search_contractor" || pathname === "/customer-profile" || pathname === "/contractor-profile"
+            ? "bg-warning text-white fw-semibold"
+            : "text-dark"
             }`}
         >
           <SearchIcon
             color={
-              pathname === "/search_contractor" || pathname === "/customer-profile"
+              pathname === "/search_contractor" || pathname === "/customer-profile" || pathname === "/contractor-profile"
                 ? "#fff"
                 : "#292D32"
             }
@@ -92,8 +92,8 @@ const Sidebar = () => {
         <Nav.Link
           onClick={() => handleLinkClick("/create_project")}
           className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/create_project" || pathname === "/create_project_form"
-              ? "bg-warning text-white fw-semibold"
-              : "text-dark"
+            ? "bg-warning text-white fw-semibold"
+            : "text-dark"
             }`}
         >
           <DashboardIcon
@@ -109,8 +109,8 @@ const Sidebar = () => {
         <Nav.Link
           onClick={() => handleLinkClick("/space")}
           className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/space" || pathname === "/project-detail"
-              ? "bg-warning text-white fw-semibold"
-              : "text-dark"
+            ? "bg-warning text-white fw-semibold"
+            : "text-dark"
             }`}
         >
           <ProjectIcon
@@ -126,8 +126,8 @@ const Sidebar = () => {
         <Nav.Link
           onClick={() => handleLinkClick("/messages")}
           className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/messages"
-              ? "bg-warning text-white fw-semibold"
-              : "text-dark"
+            ? "bg-warning text-white fw-semibold"
+            : "text-dark"
             }`}
         >
           <ChatIcon color={pathname === "/messages" ? "#fff" : "#292D32"} />
@@ -135,13 +135,13 @@ const Sidebar = () => {
         </Nav.Link>
 
         <Nav.Link
-          onClick={() => handleLinkClick("Settings", "/settings")}
-          className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "Settings"
-              ? "bg-warning text-white fw-semibold"
-              : "text-dark"
+          onClick={() => handleLinkClick("/setting", "/setting")}
+          className={`d-flex align-items-center gap-3 px-4 py-3 sidebar-link ${pathname === "/setting"
+            ? "bg-warning text-white fw-semibold"
+            : "text-dark"
             }`}
         >
-          <SettingIcon color={pathname === "Settings" ? "#fff" : "#292D32"} />
+          <SettingIcon color={pathname === "/setting" ? "#fff" : "#292D32"} />
           Settings
         </Nav.Link>
 

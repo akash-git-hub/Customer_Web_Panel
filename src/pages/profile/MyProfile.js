@@ -2,15 +2,11 @@
 import { Card, Row, Col, Image, } from "react-bootstrap";
 import Header from "../../component/Header";
 import Sidebar from "../../component/Sidebar";
-import KitchenIcon from "../../Icon/KitchenIcon";
-import BedRoomIcon from "../../Icon/BedroomIcon";
-import PlumbingIcon from "../../Icon/PlumbingIcon";
-import ElectricityIcon from "../../Icon/ElectricityIcon";
 import VideoIcon from "../../Icon/VideoIcon";
 import MultiImageIcon from "../../Icon/MultiImageIcon";
-import ChatIcon from "../../Icon/ChatIcon";
+import AddUserIcon from "../../Icon/AddUserIcon";
 
-const ContractorProfile = () => {
+const MyProfile = () => {
     const contractorData = {
         profile_url: "https://i.pravatar.cc/300?img=12",
         name: "Autumn Phillips",
@@ -19,10 +15,7 @@ const ContractorProfile = () => {
         mobile_country_code: "+91",
         mobile_number: "8989786510",
         services: [
-            { service_name: "Kitchen", icon: <KitchenIcon /> },
-            { service_name: "Bedroom", icon: <BedRoomIcon /> },
-            { service_name: "Plumbing", icon: <PlumbingIcon /> },
-            { service_name: "Electricity", icon: <ElectricityIcon /> },
+            { service_name: "Edit Profile", icon: <AddUserIcon /> },
         ],
     };
 
@@ -42,11 +35,10 @@ const ContractorProfile = () => {
                     <Header />
                     <div className="p-4">
                         <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                            <h4 className="fw-semibold mb-4 text-start">Contractor Profile</h4>
-                            <h5 className="text-success fw-semibold">Contractor Licence</h5>
+                            <h4 className="fw-semibold mb-4 text-start">My Profile</h4>
                         </div>
                         <Row>
-                            <Col lg={6}>
+                            <Col lg={4}>
                                 <Card className="border-0 rounded-4 p-4">
                                     <div className="d-flex flex-column gap-3 mb-3 align-items-center">
                                         <Image
@@ -63,15 +55,11 @@ const ContractorProfile = () => {
                                             <p className="mb-1 text-muted">{contractorData.mobile_country_code}-{contractorData.mobile_number}</p>
                                         </div>
                                     </div>
-                                    <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-2">
-                                        <h6 className="fw-bold mb-2 text-start">Services</h6>
-                                        <ChatIcon />
-                                    </div>
                                     <Row className="g-2 mb-2">
                                         {contractorData.services.map((service) => (
-                                            <Col sm={6} key={service.service_name}>
+                                            <Col sm={12} key={service.service_name}>
                                                 <Card className="border-1 rounded-4 p-3 text-center">
-                                                    <div className="d-flex align-items-center gap-2 justify-content-start">
+                                                    <div className="d-flex align-items-center gap-2 justify-content-center">
                                                         {service.icon}
                                                         <span>{service.service_name}</span>
                                                     </div>
@@ -79,18 +67,10 @@ const ContractorProfile = () => {
                                             </Col>
                                         ))}
                                     </Row>
-
-                                    <div>
-                                        <h6 className="fw-bold mb-2 text-start">Who we are</h6>
-                                        <p className="text-muted text-start mb-0">
-                                            Autumn Phillips is an experienced contractor specializing in kitchen, bedroom, and plumbing services.
-                                            Delivering high-quality renovations with a professional and timely approach.
-                                        </p>
-                                    </div>
                                 </Card>
                             </Col>
 
-                            <Col lg={6}>
+                            <Col lg={8}>
                                 <Card className="border-0 rounded-4 p-4 h-100">
                                     <Row className="g-2 mt-3">
                                         {galleryImages.map((item, index) => (
@@ -110,12 +90,12 @@ const ContractorProfile = () => {
                                                     </div>
                                                 </div>
 
-                                                <div
-                                                    className="small fw-medium text-truncate"
+                                                <p
+                                                    className=" fw-medium text-truncate"
                                                     title={item.name}
                                                 >
                                                     {item.name}
-                                                </div>
+                                                </p>
                                             </Col>
                                         ))}
                                     </Row>
@@ -132,4 +112,4 @@ const ContractorProfile = () => {
     );
 };
 
-export default ContractorProfile;
+export default MyProfile;

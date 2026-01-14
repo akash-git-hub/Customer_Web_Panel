@@ -71,7 +71,7 @@ const Home = () => {
             <Sidebar />
             <div className="flex-grow-1 p-2">
                 <div className="right-side-color">
-                    <Header />
+                    <Header buttonText="Create Project"/>
                     <div className="container mt-4">
                         <h4 className="fw-bold mb-4 text-start">Projects</h4>
 

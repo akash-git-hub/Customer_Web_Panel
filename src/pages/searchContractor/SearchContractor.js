@@ -119,7 +119,7 @@ const SearchContractor = () => {
 
             <div className="flex-grow-1">
                 <div className="right-side-color p-2">
-                    <Header />
+                    <Header buttonText={'Create Project'}/>
                     <Container fluid className="py-4 px-4">
                         <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
                             <h4 className="fw-semibold mb-4 text-start">Search Contractor</h4>

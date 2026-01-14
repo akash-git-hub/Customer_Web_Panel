@@ -93,7 +93,7 @@ const Space = () => {
 
             <div className="flex-grow-1">
                 <div className="right-side-color">
-                    <Header />
+                    <Header buttonText={'Create Project'} />
 
                     <Container fluid className="p-4">
 
