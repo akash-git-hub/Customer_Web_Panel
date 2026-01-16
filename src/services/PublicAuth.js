@@ -4,7 +4,7 @@ import { AuthContext } from "../states/AuthContext";
 
 const PublicAuth = () => {
     const { loggedIn } = useContext(AuthContext);
-    return loggedIn ? <Navigate to="/customers" replace /> : <Outlet />;
+    return loggedIn ? <Navigate to="/home" replace /> : <Outlet />;
 };
 
 export default PublicAuth;

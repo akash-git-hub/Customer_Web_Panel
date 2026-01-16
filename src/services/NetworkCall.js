@@ -80,7 +80,28 @@ export const login = async (data) => {
     return await postRequest(path, data);
 };
 
+export const fetchFeeds = async ({ page = 1, limit = 10, search = '', radius = '' }) => {
 
+    const params = new URLSearchParams({
+        page,
+        limit
+    });
+
+    if (search) {
+        params.append('search', search);
+    }
+    
+    if (radius) {
+        params.append('radius', radius);
+    }
+
+    const path = `feeds?${params.toString()}`;
+    return await getRequest(path);
+
+};
+
+
+// Not Used currently but may be used in future
 export const getCustomersAPI = async ({ page, search = "", limit }) => {
     const path = `customer?search=${search}&page=${page}&limit=${limit}`;
     return await getRequest(path);

@@ -5,6 +5,7 @@ import FillHeartIcon from "../Icon/FillHeartIcon";
 import CommentIcon from "../Icon/CommentIcon";
 import ShareIcon from "../Icon/ShareIcon";
 import { useNavigate } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
 
 
 const PostCard = ({ post }) => {
@@ -31,14 +32,17 @@ const PostCard = ({ post }) => {
     };
 
     return (
-        <Card className="shadow-md border-0 rounded-4 mb-4" onClick={() =>
-            navigate("/project-detail")
-        }>
+        <Card
+            className="shadow-md border-0 rounded-4 mb-4"
+            // onClick={() =>
+            //     navigate("/project-detail")
+            // }
+        >
             <Card.Body>
                 {/* USER */}
                 <div className="d-flex align-items-center mb-1">
                     <img
-                        src={post.avatar}
+                        src={post.profileImg}
                         alt="user"
                         className="rounded-circle me-2"
                         width={40}
@@ -50,19 +54,47 @@ const PostCard = ({ post }) => {
                     </div>
                 </div>
 
+                <p>{post.post_title}</p>
                 {/* DESCRIPTION */}
-                <p className="text-muted text-start mb-1 text-ellipsis">{post.description}</p>
+                <p className="text-muted text-start mb-1 text-ellipsis">{post.text}</p>
 
                 {/* IMAGE */}
-                <img
-                    src={post.image}
-                    alt="project"
-                    className="w-100 rounded-3 mb-3"
-                    style={{
-                        height: '160px',
-                        objectFit: 'cover'
-                    }}
-                />
+                {Array.isArray(post.media) && post.media.length > 0 && (
+                    <Carousel
+                        indicators={post.media.length > 1}
+                        controls={post.media.length > 1}
+                        interval={null}
+                        className="mb-3"
+                    >
+                        {post.media.map((item, index) => (
+                            <Carousel.Item key={index}>
+                                {item.type === "image" && (
+                                    <img
+                                        src={item.uri}
+                                        alt={`media-${index}`}
+                                        className="w-100 rounded-3"
+                                        style={{
+                                            height: "160px",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                )}
+
+                                {item.type === "video" && (
+                                    <video
+                                        src={item.uri}
+                                        controls
+                                        className="w-100 rounded-3"
+                                        style={{
+                                            height: "160px",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                )}
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
+                )}
 
                 {/* ACTIONS */}
                 <div className="d-flex justify-content-between align-items-center mb-1 px-1">
@@ -71,34 +103,41 @@ const PostCard = ({ post }) => {
                         className="d-flex align-items-center gap-2 cursor-pointer"
                         onClick={handleLike}
                     >
-                        {liked ? (
+                        {post.isLike ? (
                             <FillHeartIcon />
                         ) : (
                             <HeartIcon />
                         )}
-                        <small className="fw-medium">{likes}</small>
+                        <small className="fw-medium">{post.likes}</small>
                     </div>
 
                     {/* COMMENT */}
                     <div className="d-flex align-items-center gap-2 cursor-pointer">
                         <CommentIcon />
-                        <small className="fw-medium">{comments.length}</small>
+                        <small className="fw-medium">{post.comments}</small>
                     </div>
 
                     {/* SHARE */}
-                    <div className="d-flex align-items-center gap-2 cursor-pointer">
+                    {/* <div className="d-flex align-items-center gap-2 cursor-pointer">
                         <ShareIcon />
                         <small className="fw-medium">Share</small>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* COMMENTS */}
-                {comments.length > 0 && (
+                {post.comments_text.length > 0 && (
                     <div className="mb-3">
-                        {comments.map((c, i) => (
+                        {post.comments_text.map((c, i) => (
                             <div key={i} className="d-flex gap-2 small mb-1">
-                                <strong>{c.user}</strong>
-                                <span className="text-muted">{c.text}</span>
+                                <img
+                                    src={c.user_profile}
+                                    alt={c.user_name}
+                                    className="rounded-circle mb-3"
+                                    width={30}
+                                    height={30}
+                                />
+                                <strong>{c.user_name}</strong>
+                                <span className="text-muted">{c.comment}</span>
                             </div>
                         ))}
                     </div>

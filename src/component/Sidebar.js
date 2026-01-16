@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Nav } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -17,6 +17,19 @@ const Sidebar = () => {
   const { setLoggedIn, setProfileData } = useContext(AuthContext);
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
+
+  const profileData = useMemo(() => {
+    try {
+      const data = localStorage.getItem(
+        `${process.env.REACT_APP_STORAGE_PREFIX}profileData`
+      );
+      return data ? JSON.parse(data) : {};
+    } catch (err) {
+      return {};
+    }
+  }, []);
+
+  console.log(profileData?.profile_url)
 
   const handleLinkClick = (route) => {
     if (route) navigate(route); // Redirect to route
@@ -51,11 +64,17 @@ const Sidebar = () => {
         <h4 className="mb-0 fw-bold">TRADIE</h4>
       </div>
       <UserProfileCard
+        // user={{
+        //   avatar: profileData?.profile_url || "https://i.pravatar.cc/300?img=12",
+        //   name: profileData?.name || "—",
+        //   email: profileData?.email || "—",
+        //   address: profileData?.address || "",
+        // }}
         user={{
-          avatar: "https://i.pravatar.cc/300?img=12",
-          name: "Duane Dean",
-          email: "TradieCustomer@gmail.com",
-          address: "Ritter Street, Huntsville",
+          avatar: profileData?.profile_urll || "/assets/Images/default_user.png",
+          name: profileData?.name || "No name provided",
+          email: profileData?.email || "No email provided",
+          address: profileData?.address?.address || "",
         }}
       />
 

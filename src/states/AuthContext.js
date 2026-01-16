@@ -4,7 +4,6 @@ import React, { createContext, useState } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    console.log("REACT_APP_STORAGE_PREFIX:", process.env.REACT_APP_STORAGE_PREFIX);
   const [loggedIn, setLoggedIn] = useState(
     localStorage.getItem(`${process.env.REACT_APP_STORAGE_PREFIX}loggedIn`) === "true"
   );

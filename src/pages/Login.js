@@ -43,16 +43,6 @@ const Login = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        if (inData.reminder) {
-            localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`, true);
-            localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`, inData.emailOrMobile);
-            localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`, inData.password);
-        } else {
-            localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`);
-            localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`);
-            localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`);
-        }
-
         let isValid = 1;
 
         if (!inData.emailOrMobile) {
@@ -73,15 +63,28 @@ const Login = () => {
             };
 
             const res = await login(payload);
-
+            localStorage.clear();
             if (res.success) {
+
+                // These localStorage are for remember me functionality
+                if (inData.reminder) {
+                    localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`, true);
+                    localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`, inData.emailOrMobile);
+                    localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`, inData.password);
+                } else {
+                    localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`);
+                    localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`);
+                    localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`);
+                }
+
+                // Setting auth context and localStorage
                 setLoggedIn(true);
                 setProfileData(res.data);
                 localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}loggedIn`, "true");
                 localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}authToken`, `${res.data.token}`);
                 localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}profileData`, JSON.stringify(res.data));
-                successAlert({ message: res.message });
-                navigate("/customers", { replace: true });
+                // successAlert({ message: res.message });
+                navigate("/home", { replace: true });
             } else {
                 errorAlert({ message: res.message });
             }
