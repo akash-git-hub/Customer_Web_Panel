@@ -14,7 +14,7 @@ const Home = () => {
 
     const loadFeeds = async (pageNo = 1) => { 
         setLoading(true);
-        const res = await fetchFeeds({ page: pageNo, limit: 10 });
+        const res = await fetchFeeds({ page: pageNo, limit: 12 });
         if (res.success) {
             if (pageNo === 1) {
                 setFeeds(res.data);
