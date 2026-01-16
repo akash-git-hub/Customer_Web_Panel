@@ -117,7 +117,7 @@ const SearchContractor = () => {
         <div className="d-flex">
             <Sidebar />
 
-            <div className="flex-grow-1">
+            <div className="flex-grow-1 overflow-hidden">
                 <div className="right-side-color p-2">
                     <Header buttonText={'Create Project'}/>
                     <Container fluid className="py-4 px-4">

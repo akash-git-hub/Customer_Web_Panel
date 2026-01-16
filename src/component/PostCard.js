@@ -48,13 +48,13 @@ const PostCard = ({ post }) => {
                         width={40}
                         height={40}
                     />
-                    <div className="d-flex align-items-center gap-2">
+                    <div className="d-flex align-items-center gap-2 text-ellipsis">
                         <h6 className="mb-0 fw-bold">{post.name}</h6>
                         <small className="text-muted">{post.date}</small>
                     </div>
                 </div>
 
-                <p>{post.post_title}</p>
+                <p className="mb-1 text-ellipsis text-start">{post.post_title}</p>
                 {/* DESCRIPTION */}
                 <p className="text-muted text-start mb-1 text-ellipsis">{post.text}</p>
 
@@ -74,7 +74,7 @@ const PostCard = ({ post }) => {
                                         alt={`media-${index}`}
                                         className="w-100 rounded-3"
                                         style={{
-                                            height: "160px",
+                                            height: "120px",
                                             objectFit: "cover",
                                         }}
                                     />

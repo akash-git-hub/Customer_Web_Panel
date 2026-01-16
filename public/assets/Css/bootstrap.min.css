@@ -14315,6 +14315,8 @@ input.chat-input {
     background: #F7F7F7;
     height: 100%;
     border-radius: 35px;
+      width: 100%;
+  overflow-x: hidden;
 }
 
 .text-ellipsis {
@@ -14523,4 +14525,18 @@ input.chat-input {
 
 .notification-item:hover {
   background: #f7f7f7;
+}
+
+
+.post-card {
+  width: 100%;
+}
+
+.post-card img,
+.post-card video {
+  max-width: 100%;
+}
+
+.card {
+  width: 100%;
 }

@@ -106,11 +106,10 @@ const Home = () => {
         <div className="d-flex">
             <Loader show={loading} />
             <Sidebar />
-            <div className="flex-grow-1 p-2">
+            <div className="flex-grow-1 p-2 overflow-hidden">
                 <div className="right-side-color">
                     <Header buttonText="Create Project"/>
                     <div className="container mt-4">
-                        {/* <h4 className="fw-bold mb-4 text-start">Projects</h4> */}
                         <div className="row">
                             {feeds.map((post) => (
                                 <div className="col-md-3" key={`${post.id}_${post.post_type}`}>
