@@ -16,9 +16,9 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { setLoggedIn, setProfileData } = useContext(AuthContext);
     const [inData, setInData] = useState({
-        emailOrMobile: localStorage.getItem("myEmailOrMobile"),
-        password: localStorage.getItem("myPassword"),
-        reminder: localStorage.getItem("myReminder") === "true",
+        emailOrMobile: localStorage.getItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`),
+        password: localStorage.getItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`),
+        reminder: localStorage.getItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`) === "true",
     });
     const [error, setError] = useState({ emailOrMobile: "", password: "" });
     const [loading, setLoading] = useState(false);
@@ -44,13 +44,13 @@ const Login = () => {
         e.preventDefault();
 
         if (inData.reminder) {
-            localStorage.setItem("myReminder", true);
-            localStorage.setItem("myEmailOrMobile", inData.emailOrMobile);
-            localStorage.setItem("myPassword", inData.password);
+            localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`, true);
+            localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`, inData.emailOrMobile);
+            localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`, inData.password);
         } else {
-            localStorage.removeItem("myReminder");
-            localStorage.removeItem("myEmailOrMobile");
-            localStorage.removeItem("myPassword");
+            localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myReminder`);
+            localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myEmailOrMobile`);
+            localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}myPassword`);
         }
 
         let isValid = 1;
@@ -77,9 +77,9 @@ const Login = () => {
             if (res.success) {
                 setLoggedIn(true);
                 setProfileData(res.data);
-                localStorage.setItem("loggedIn", "true");
-                localStorage.setItem("authToken", `${res.data.token}`);
-                localStorage.setItem("profileData", JSON.stringify(res.data));
+                localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}loggedIn`, "true");
+                localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}authToken`, `${res.data.token}`);
+                localStorage.setItem(`${process.env.REACT_APP_STORAGE_PREFIX}profileData`, JSON.stringify(res.data));
                 successAlert({ message: res.message });
                 navigate("/customers", { replace: true });
             } else {
@@ -101,9 +101,9 @@ const Login = () => {
                         </div>
                     </Col>
 
-                    <Col xs={12}lg={6}className="d-flex align-items-center justify-content-center">
+                    <Col xs={12} lg={6} className="d-flex align-items-center justify-content-center">
                         <div className="login-form-wrapper text-center">
-                            <img src="/assets/Images/Tradie_Logo.png" alt="Tradie Logo" className="login-logo mb-3"/>
+                            <img src="/assets/Images/Tradie_Logo.png" alt="Tradie Logo" className="login-logo mb-3" />
                             <h2 className="login-title mb-4">LOGIN</h2>
                             <Form onSubmit={submitHandler}>
                                 <InputField
@@ -161,7 +161,7 @@ const Login = () => {
                                     Log In
                                 </Button>
                             </Form>
-
+                            {/*         
                             <div className="social-login mt-4">
                                 <p>Or can continue with</p>
                                 <div className="social-icons">
@@ -170,6 +170,7 @@ const Login = () => {
                                     <span className="circle"></span>
                                 </div>
                             </div>
+                            */}
                         </div>
                     </Col>
                 </Row>

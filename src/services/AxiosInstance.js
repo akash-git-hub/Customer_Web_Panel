@@ -37,9 +37,9 @@ const handleSessionExpired = () => {
 
 const redirectToLogin = () => {
     // Clean up localStorage and redirect to login
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("profileData");
-    localStorage.removeItem("loggedIn");
+    localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}authToken`);
+    localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}profileData`);
+    localStorage.removeItem(`${process.env.REACT_APP_STORAGE_PREFIX}loggedIn`);
 
     // Remove the click event listener after redirection
     document.removeEventListener("click", redirectToLogin);

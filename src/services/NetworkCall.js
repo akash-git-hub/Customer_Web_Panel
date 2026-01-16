@@ -2,7 +2,7 @@ import moment from "moment-timezone";
 import { axiosInstance } from "./AxiosInstance";
 
 const getHeader = () => {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = localStorage.getItem(`${process.env.REACT_APP_STORAGE_PREFIX}authToken`);
     const timezone = moment.tz.guess(); // Get device's current time zone
     const headers = {
         timezone: timezone,
@@ -76,7 +76,7 @@ const getRequest = async (path) => {
 
 //common login api for admin and super visor
 export const login = async (data) => {
-    const path = "login";
+    const path = "auth/login";
     return await postRequest(path, data);
 };
 
