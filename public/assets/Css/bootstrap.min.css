@@ -14315,8 +14315,8 @@ input.chat-input {
     background: #F7F7F7;
     height: 100%;
     border-radius: 35px;
-      width: 100%;
-  overflow-x: hidden;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .text-ellipsis {
@@ -14477,66 +14477,93 @@ input.chat-input {
 }
 
 .form-wrapper {
-  max-width: 760px;  
-  width: 100%;
+    max-width: 760px;
+    width: 100%;
 }
 
 .settings-panel {
-  background: #ffffff;
-  min-height: 100%;
+    background: #ffffff;
+    min-height: 100%;
 }
 
 .settings-item {
-  padding: 18px 20px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: background 0.2s ease;
+    padding: 18px 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .settings-item:not(:last-child) {
-  margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .settings-item:hover {
-  background: #fafafa;
+    background: #fafafa;
 }
 
 .settings-icon {
-  width: 52px;
-  height: 52px;
-  background: #fff7e8;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: #fff7e8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
 .notification-dropdown {
-  width: 320px;
-  border-radius: 14px;
-  padding: 0;
-  overflow: hidden;
+    width: 320px;
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
 }
 
 .notification-item {
-  padding: 10px 14px;
+    padding: 10px 14px;
 }
 
 .notification-item:hover {
-  background: #f7f7f7;
+    background: #f7f7f7;
 }
 
 
 .post-card {
-  width: 100%;
+    width: 100%;
 }
 
 .post-card img,
 .post-card video {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 .card {
-  width: 100%;
+    width: 100%;
+}
+
+.custom-tabs .nav {
+    background: #f3f3f3;
+    padding: 6px;
+    border-radius: 30px;
+    display: inline-flex;
+}
+
+.custom-tabs .nav-link {
+    border: none;
+    color: #000;
+    border-radius: 25px;
+    padding: 8px 20px;
+    margin-right: 25px;
+    font-weight: 500;
+    background: #ffffff;
+}
+
+.custom-tabs .nav-link.active {
+    background: #ffcc00 !important;
+    color: #000 !important;
+    border-radius: 25px;
+}
+
+.custom-tabs .nav-tabs {
+    border-bottom: none;
 }

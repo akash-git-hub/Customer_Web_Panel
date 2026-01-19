@@ -23,6 +23,7 @@ import SearchContractor from "./pages/searchContractor/SearchContractor";
 import MyProfile from "./pages/profile/MyProfile";
 import EditProfile from "./pages/profile/EditProfile";
 import Setting from "./pages/setting/Setting";
+import MyProject from "./pages/project/MyProject";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
           <Route element={<PrivateLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/space" element={<Space />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/my_project" element={<MyProject />} />
             <Route path="/create_project" element={<CreateProject />} />
             <Route path="/create_project_form" element={<ProjectForm />} />
             <Route path="/project-detail" element={<ProjectDetail />} />
