@@ -71,72 +71,66 @@ const Projects = () => {
   return (
     <>
       <Loader show={loading} />
-      <div className="d-flex min-vh-100">
-        <Sidebar />
-        <div className="flex-grow-1 text-start">
-          <Header />
-          <div className="p-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="fw-bold mb-0">Projects</h4>
-              <StatusFilterDropdown
-                value={statusFilter}
-                options={PROJECT_STATUS_OPTIONS}
-                onChange={setStatusFilter}
-              />
-            </div>
-
-            <div className="table-responsive border rounded-4" style={{
-              maxHeight: "600px",
-              overflowY: "auto",
-              border: "1px solid #d9b04c",
-              borderRadius: "0.5rem"
-            }}>
-              <Table className="mb-0 align-middle">
-                <thead style={{ position: "sticky", top: 0, background: "#d9b04c", zIndex: 1 }}>
-                  <tr style={{ background: "#d9b04c" }}>
-                    <th className="small fw-semibold">S NO</th>
-                    <th className="small fw-semibold">CUSTOMER NAME</th>
-                    <th className="small fw-semibold">PROJECT NAME</th>
-                    <th className="small fw-semibold">CONTRACTOR NAME</th>
-                    <th className="small fw-semibold">START DATE</th>
-                    <th className="small fw-semibold">STATUS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {projectsData && projectsData.map((data, index) => (
-                    <tr key={index}
-                      onClick={() => handleRowClick(data?.id)}
-                      style={{ cursor: "pointer" }}
-                      className="table-row-hover"
-                    >
-                      <td className="small">
-                        {(pagination.page - 1) * pagination.limit + index + 1}
-                      </td>
-                      <td className="small">{data?.customer}</td>
-                      <td className="small">{data?.title}</td>
-                      <td className="small">{data?.contractor}</td>
-                      <td className="small">
-                        {data?.createdAt
-                          ? moment(data.createdAt).local().format("MMM D, YYYY")
-                          : ""}
-                      </td>
-                      <td className="small">
-                        {data?.status && getBadge(data?.status)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-
-              </Table>
-            </div>
-            {/* Pagination */}
-            {pagination && pagination?.totalPages > 1 && <TablePagination
-              totalPages={pagination?.totalPages}
-              currentPage={pagination?.page}
-              onPageChange={pageHandler}
-            />}
-          </div>
+      <div className="p-4">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 className="fw-bold mb-0">Projects</h4>
+          <StatusFilterDropdown
+            value={statusFilter}
+            options={PROJECT_STATUS_OPTIONS}
+            onChange={setStatusFilter}
+          />
         </div>
+
+        <div className="table-responsive border rounded-4" style={{
+          maxHeight: "600px",
+          overflowY: "auto",
+          border: "1px solid #d9b04c",
+          borderRadius: "0.5rem"
+        }}>
+          <Table className="mb-0 align-middle">
+            <thead style={{ position: "sticky", top: 0, background: "#d9b04c", zIndex: 1 }}>
+              <tr style={{ background: "#d9b04c" }}>
+                <th className="small fw-semibold">S NO</th>
+                <th className="small fw-semibold">CUSTOMER NAME</th>
+                <th className="small fw-semibold">PROJECT NAME</th>
+                <th className="small fw-semibold">CONTRACTOR NAME</th>
+                <th className="small fw-semibold">START DATE</th>
+                <th className="small fw-semibold">STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {projectsData && projectsData.map((data, index) => (
+                <tr key={index}
+                  onClick={() => handleRowClick(data?.id)}
+                  style={{ cursor: "pointer" }}
+                  className="table-row-hover"
+                >
+                  <td className="small">
+                    {(pagination.page - 1) * pagination.limit + index + 1}
+                  </td>
+                  <td className="small">{data?.customer}</td>
+                  <td className="small">{data?.title}</td>
+                  <td className="small">{data?.contractor}</td>
+                  <td className="small">
+                    {data?.createdAt
+                      ? moment(data.createdAt).local().format("MMM D, YYYY")
+                      : ""}
+                  </td>
+                  <td className="small">
+                    {data?.status && getBadge(data?.status)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
+          </Table>
+        </div>
+        {/* Pagination */}
+        {pagination && pagination?.totalPages > 1 && <TablePagination
+          totalPages={pagination?.totalPages}
+          currentPage={pagination?.page}
+          onPageChange={pageHandler}
+        />}
       </div>
     </>
 

@@ -47,19 +47,19 @@ const projectData = {
   services: [
     {
       service_name: "Kitchen",
-      service_icon: <KitchenIcon/>,
+      service_icon: <KitchenIcon />,
     },
     {
       service_name: "Flooring",
-      service_icon: <FlooringIcon/>,
+      service_icon: <FlooringIcon />,
     },
     {
       service_name: "Electricity",
-      service_icon: <ElectricityIcon/>,
+      service_icon: <ElectricityIcon />,
     },
     {
       service_name: "BedRoom",
-      service_icon: <BedRoomIcon/>,
+      service_icon: <BedRoomIcon />,
     },
   ],
 
@@ -105,7 +105,6 @@ const projectData = {
   ],
 };
 
-
 const payments = [
   {
     date: "01 JAN 2025",
@@ -131,185 +130,174 @@ const payments = [
   },
 ];
 
-
 const ProjectDetail = () => {
   const [activeTab, setActiveTab] = useState("description");
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="d-flex min-vh-100">
-      <Sidebar />
+    <Container className="p-4">
+      <h4 className="fw-bold mb-4 text-start">Project Detail</h4>
+      <Row className="g-4">
+        <Col lg={5}>
+          <Card className="border-0 rounded-4 overflow-hidden position-relative">
+            <Carousel
+              indicators={false}
+              activeIndex={activeIndex}
+              onSelect={setActiveIndex}
+            >
+              {projectData.files.map((img, index) => (
+                <Carousel.Item key={index}>
+                  <Image
+                    src={img.uri}
+                    className="w-100"
+                    style={{ height: 320, objectFit: "cover" }}
+                  />
+                </Carousel.Item>
+              ))}
+            </Carousel>
 
-      <div className="flex-grow-1 p-2">
-        <div className="right-side-color">
-          <Header buttonText={'Create Project'}/>
+            <Badge className="position-absolute bottom-0 start-0 m-3 bg-warning">
+              {activeIndex + 1} / {projectData.files.length}
+            </Badge>
+          </Card>
+        </Col>
 
-          <Container className="p-4">
-            <h4 className="fw-bold mb-4 text-start">Project Detail</h4>
-            <Row className="g-4">
-              <Col lg={5}>
-                <Card className="border-0 rounded-4 overflow-hidden position-relative">
-                  <Carousel
-                    indicators={false}
-                    activeIndex={activeIndex}
-                    onSelect={setActiveIndex}
-                  >
-                    {projectData.files.map((img, index) => (
-                      <Carousel.Item key={index}>
-                        <Image
-                          src={img.uri}
-                          className="w-100"
-                          style={{ height: 320, objectFit: "cover" }}
-                        />
-                      </Carousel.Item>
-                    ))}
-                  </Carousel>
+        <Col lg={7}>
+          <div className="d-flex justify-content-between mb-2">
+            <div>
+              <h3 className="fw-bold">{projectData.title}</h3>
+              <h4 className="text-muted text-start fw-normal">
+                {projectData.address}
+              </h4>
+            </div>
 
-                  <Badge className="position-absolute bottom-0 start-0 m-3 bg-warning">
-                    {activeIndex + 1} / {projectData.files.length}
-                  </Badge>
+            <div className="text-end">
+              ⭐ {projectData.rating}
+              <div className="text-muted small">
+                {moment(projectData.createdAt).format("MMM D, YYYY")}
+              </div>
+            </div>
+          </div>
+
+          {/* Services */}
+          <Row className="g-2 mb-3">
+            {projectData.services.map((s, i) => (
+              <Col sm={6} key={i}>
+                <Card
+                  className="border-0 rounded-4 p-3"
+                  style={{
+                    background: "#F9EDD2",
+                  }}
+                >
+                  <Stack direction="horizontal" gap={2}>
+                    {s.service_icon}
+                    <h6 className="fw-semibold">{s.service_name}</h6>
+                  </Stack>
                 </Card>
               </Col>
+            ))}
+          </Row>
 
-              <Col lg={7}>
-                <div className="d-flex justify-content-between mb-2">
-                  <div>
-                    <h3 className="fw-bold">{projectData.title}</h3>
-                    <h4 className="text-muted text-start fw-normal">{projectData.address}</h4>
-                  </div>
+          <Row className="g-3">
+            <Col sm={6}>
+              <UserCard
+                name={projectData.customer.name}
+                email={projectData.customer.email}
+                role="Customer"
+                avatar={projectData.customer.profile_url}
+                color="warning"
+              />
+            </Col>
 
-                  <div className="text-end">
-                    ⭐ {projectData.rating}
-                    <div className="text-muted small">
-                      {moment(projectData.createdAt).format("MMM D, YYYY")}
-                    </div>
-                  </div>
-                </div>
+            <Col sm={6}>
+              <UserCard
+                name={projectData.contractor.name}
+                email={projectData.contractor.email}
+                role="Contractor"
+                avatar={projectData.contractor.profile_url}
+                color="primary"
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
 
-                {/* Services */}
-                <Row className="g-2 mb-3">
-                  {projectData.services.map((s, i) => (
-                    <Col sm={6} key={i}>
-                      <Card className="border-0 rounded-4 p-3" style={{
-                        background: '#F9EDD2'
-                      }}>
-                        <Stack direction="horizontal" gap={2}>
-                          {s.service_icon}
-                          <h6 className="fw-semibold">{s.service_name}</h6>
-                        </Stack>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
+      <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
+        <Nav
+          variant="pills"
+          className="mt-5 p-2 rounded-pill gap-5"
+          style={{ background: "#F6E9C8" }}
+        >
+          <Nav.Link eventKey="description">
+            <DescriptionIcon active={activeTab === "description"} />
+            <span className="ms-2">Description</span>
+          </Nav.Link>
 
+          <Nav.Link eventKey="milestone">
+            <MilestoneIcon active={activeTab === "milestone"} />
+            <span className="ms-2">Milestone</span>
+          </Nav.Link>
 
+          <Nav.Link eventKey="chat">
+            <ChatIcon active={activeTab === "chat"} />
+            <span className="ms-2">Chat</span>
+          </Nav.Link>
 
-                <Row className="g-3">
-                  <Col sm={6}>
-                    <UserCard
-                      name={projectData.customer.name}
-                      email={projectData.customer.email}
-                      role="Customer"
-                      avatar={projectData.customer.profile_url}
-                      color="warning"
-                    />
-                  </Col>
+          <Nav.Link eventKey="payment">
+            <PaymentIcon active={activeTab === "payment"} />
+            <span className="ms-2">Payment</span>
+          </Nav.Link>
 
-                  <Col sm={6}>
-                    <UserCard
-                      name={projectData.contractor.name}
-                      email={projectData.contractor.email}
-                      role="Contractor"
-                      avatar={projectData.contractor.profile_url}
-                      color="primary"
-                    />
-                  </Col>
-                </Row>
-              </Col>
+          <Nav.Link eventKey="documents">
+            <LicenseIcon active={activeTab === "documents"} />
+            <span className="ms-2">Documents</span>
+          </Nav.Link>
+        </Nav>
+
+        <Tab.Content className="mt-4">
+          <Tab.Pane eventKey="description">
+            <Card className="border-0 rounded-4 p-4">
+              <p className="text-muted mb-0 text-start">
+                {projectData.description}
+              </p>
+            </Card>
+          </Tab.Pane>
+
+          <Tab.Pane eventKey="milestone">
+            <Row className="g-4">
+              {projectData.contractor.milestones.map((m, i) => (
+                <Col md={6} lg={4} key={i}>
+                  <MilestoneCard />
+                </Col>
+              ))}
             </Row>
+          </Tab.Pane>
 
-            <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
-              <Nav
-                variant="pills"
-                className="mt-5 p-2 rounded-pill gap-5"
-                style={{ background: "#F6E9C8" }}
-              >
-                <Nav.Link eventKey="description">
-                  <DescriptionIcon active={activeTab === "description"} />
-                  <span className="ms-2">Description</span>
-                </Nav.Link>
+          <Tab.Pane eventKey="payment">
+            <Row className="g-4">
+              {payments.map((p, i) => (
+                <Col md={6} lg={4} key={i}>
+                  <PaymentCard {...p} />
+                </Col>
+              ))}
+            </Row>
+          </Tab.Pane>
 
-                <Nav.Link eventKey="milestone">
-                  <MilestoneIcon active={activeTab === "milestone"} />
-                  <span className="ms-2">Milestone</span>
-                </Nav.Link>
-
-                <Nav.Link eventKey="chat">
-                  <ChatIcon active={activeTab === "chat"} />
-                  <span className="ms-2">Chat</span>
-                </Nav.Link>
-
-                <Nav.Link eventKey="payment">
-                  <PaymentIcon active={activeTab === "payment"} />
-                  <span className="ms-2">Payment</span>
-                </Nav.Link>
-
-                <Nav.Link eventKey="documents">
-                  <LicenseIcon active={activeTab === "documents"} />
-                  <span className="ms-2">Documents</span>
-                </Nav.Link>
-
-              </Nav>
-
-              <Tab.Content className="mt-4">
-                <Tab.Pane eventKey="description">
-                  <Card className="border-0 rounded-4 p-4">
-                    <p className="text-muted mb-0 text-start">
-                      {projectData.description}
-                    </p>
-                  </Card>
-                </Tab.Pane>
-
-                <Tab.Pane eventKey="milestone">
-                  <Row className="g-4">
-                    {projectData.contractor.milestones.map((m, i) => (
-                      <Col md={6} lg={4} key={i}>
-                        <MilestoneCard />
-                      </Col>
-                    ))}
-                  </Row>
-                </Tab.Pane>
-
-                <Tab.Pane eventKey="payment">
-                  <Row className="g-4">
-                    {payments.map((p, i) => (
-                      <Col md={6} lg={4} key={i}>
-                        <PaymentCard {...p} />
-                      </Col>
-                    ))}
-                  </Row>
-                </Tab.Pane>
-
-                <Tab.Pane eventKey="documents">
-                  <Row className="g-4">
-                    {projectData.documents.map((d, i) => (
-                      <Col md={4} key={i}>
-                        <DocumentCard
-                          title={d.document_name}
-                          onClick={() =>
-                            window.open(d.document_url, "_blank")
-                          }
-                        />
-                      </Col>
-                    ))}
-                  </Row>
-                </Tab.Pane>
-              </Tab.Content>
-            </Tab.Container>
-          </Container>
-        </div>
-      </div>
-    </div>
+          <Tab.Pane eventKey="documents">
+            <Row className="g-4">
+              {projectData.documents.map((d, i) => (
+                <Col md={4} key={i}>
+                  <DocumentCard
+                    title={d.document_name}
+                    onClick={() => window.open(d.document_url, "_blank")}
+                  />
+                </Col>
+              ))}
+            </Row>
+          </Tab.Pane>
+        </Tab.Content>
+      </Tab.Container>
+    </Container>
   );
 };
 

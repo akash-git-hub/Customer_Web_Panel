@@ -125,7 +125,7 @@ const PostCard = ({ post }) => {
                 </div>
 
                 {/* COMMENTS */}
-                {post.comments_text.length > 0 && (
+                {/* {post.comments_text.length > 0 && (
                     <div className="mb-3">
                         {post.comments_text.map((c, i) => (
                             <div key={i} className="d-flex gap-2 small mb-1">
@@ -141,7 +141,7 @@ const PostCard = ({ post }) => {
                             </div>
                         ))}
                     </div>
-                )}
+                )} */}
             </Card.Body>
         </Card>
     );

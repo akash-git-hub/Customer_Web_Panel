@@ -54,9 +54,9 @@ const ContractorList = () => {
     <>
       <Loader show={loading} />
       <div className="d-flex">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div className="flex-grow-1 text-start">
-          <Header />
+          {/* <Header /> */}
           <div className="p-4">
             <h4 className="fw-bold mb-4">Contractor List</h4>
             <div className="table-responsive border rounded-4 " style={{

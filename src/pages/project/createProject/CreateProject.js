@@ -45,60 +45,51 @@ const CreateProject = () => {
     };
 
     return (
-        <div className="d-flex min-vh-100">
-            <Sidebar />
-
-            <div className="flex-grow-1 p-2">
-                <div className="right-side-color">
-                    <Header />
-                    <Container className="p-4">
-                        <h4 className="mb-2 text-start fw-bold">Create Project</h4>
-                        <p className="text-start fw-normal">What are you looking to do?</p>
-                        <Card className="p-4 shadow-sm border-0 rounded-4">
-                            <div className="d-flex flex-wrap justify-content-start gap-3">
-                                {projectOptions.map((option) => {
-                                    const isActive = selectedIds.includes(option.id);
-                                    return (
-                                        <div
-                                            key={option.id}
-                                            className="d-flex flex-column align-items-center"
-                                            style={{ width: "180px" }}
-                                        >
-                                            <Button
-                                                variant="light"
-                                                onClick={() => handleSelect(option.id)}
-                                                className={`d-flex flex-column align-items-center justify-content-center py-3 rounded-4 Service_Icon border
-                                                ${isActive ? "border-warning bg-warning-subtle"
-                                                        : "border-secondary bg-white"}`}>
-                                                <span style={{ fontSize: "24px" }}>
-                                                    {React.cloneElement(option.icon, {
-                                                        color: isActive ? "#F4B400" : "#292D32",
-                                                    })}
-                                                </span>
-                                            </Button>
-
-                                            <p className={` mt-2 text-center
-                        ${isActive ? "text-warning fw-semibold" : "text-dark"}`}>
-                                                {option.name}
-                                            </p>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </Card>
-                        <div className="mt-4 text-start">
-                            <Button
-                                variant="primary"
-                                className="px-5 login-btn w-25"
-                                disabled={selectedIds.length === 0}
+        <Container className="p-4">
+            <h4 className="mb-2 text-start fw-bold">Create Project</h4>
+            <p className="text-start fw-normal">What are you looking to do?</p>
+            <Card className="p-4 shadow-sm border-0 rounded-4">
+                <div className="d-flex flex-wrap justify-content-start gap-3">
+                    {projectOptions.map((option) => {
+                        const isActive = selectedIds.includes(option.id);
+                        return (
+                            <div
+                                key={option.id}
+                                className="d-flex flex-column align-items-center"
+                                style={{ width: "180px" }}
                             >
-                                Next
-                            </Button>
-                        </div>
-                    </Container>
+                                <Button
+                                    variant="light"
+                                    onClick={() => handleSelect(option.id)}
+                                    className={`d-flex flex-column align-items-center justify-content-center py-3 rounded-4 Service_Icon border
+                                                ${isActive ? "border-warning bg-warning-subtle"
+                                            : "border-secondary bg-white"}`}>
+                                    <span style={{ fontSize: "24px" }}>
+                                        {React.cloneElement(option.icon, {
+                                            color: isActive ? "#F4B400" : "#292D32",
+                                        })}
+                                    </span>
+                                </Button>
+
+                                <p className={` mt-2 text-center
+                        ${isActive ? "text-warning fw-semibold" : "text-dark"}`}>
+                                    {option.name}
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
+            </Card>
+            <div className="mt-4 text-start">
+                <Button
+                    variant="primary"
+                    className="px-5 login-btn w-25"
+                    disabled={selectedIds.length === 0}
+                >
+                    Next
+                </Button>
             </div>
-        </div>
+        </Container>
     );
 };
 

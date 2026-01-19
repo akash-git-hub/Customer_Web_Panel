@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import './App.css';
+import PrivateLayout from "./layouts/PrivateLayout";
 import Login from "./pages/Login";
 import Projects from "./pages/project/Project";
 import ProjectDetail from "./pages/project/ProjectDetail";
@@ -29,30 +30,29 @@ function App() {
       <Routes>
         <Route element={<PublicAuth />}>
           <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup/>} />
-          <Route path="/forgot_password" element={<ForgotPassword/>} />
-          <Route path="/change_password" element={<ChangePassword/>} />
-          <Route path="/verification_code" element={<VerificationCode/>} />
-          <Route path="/set_location" element={<SetLocation/>} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot_password" element={<ForgotPassword />} />
+          <Route path="/change_password" element={<ChangePassword />} />
+          <Route path="/verification_code" element={<VerificationCode />} />
+          <Route path="/set_location" element={<SetLocation />} />
         </Route>
         {/* Customer routes */}
         <Route element={<Auth />}>
-          <Route path="/home" element={<Home/>} />
-          <Route path="/space" element={<Space />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/create_project" element={<CreateProject />} />
-          <Route path="/create_project_form" element={<ProjectForm />} />
-          <Route path="/project-detail" element={<ProjectDetail />} />
-          <Route path="/search_contractor" element={<SearchContractor />} />
-          <Route path="/contractor-profile" element={<ContractorProfile />} />
-          <Route path="/messages" element={<ChatMessages />} />
-          <Route path="/myprofile" element={<MyProfile />} />
-          <Route path="/edit_profile" element={<EditProfile />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="/license_verification_detail" element={<LicenseVerificationDetail />} />
-
-
-
+          <Route element={<PrivateLayout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/space" element={<Space />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/create_project" element={<CreateProject />} />
+            <Route path="/create_project_form" element={<ProjectForm />} />
+            <Route path="/project-detail" element={<ProjectDetail />} />
+            <Route path="/search_contractor" element={<SearchContractor />} />
+            <Route path="/contractor-profile" element={<ContractorProfile />} />
+            <Route path="/messages" element={<ChatMessages />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+            <Route path="/edit_profile" element={<EditProfile />} />
+            <Route path="/setting" element={<Setting />} />
+            <Route path="/license_verification_detail" element={<LicenseVerificationDetail />} />
+          </Route>
           {/* <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/customers" element={<CustomerList />} />
           <Route path="/contractors" element={<ContractorList />} />

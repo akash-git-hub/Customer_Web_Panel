@@ -35,98 +35,90 @@ const ContractorProfile = () => {
 
 
     return (
-        <div className="d-flex min-vh-100">
-            <Sidebar />
-            <div className="flex-grow-1 overflow-auto">
-                <div className="right-side-color p-2">
-                    <Header />
-                    <div className="p-4">
-                        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                            <h4 className="fw-semibold mb-4 text-start">Contractor Profile</h4>
-                            <h5 className="text-success fw-semibold">Contractor Licence</h5>
+        <div className="p-4">
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <h4 className="fw-semibold mb-4 text-start">Contractor Profile</h4>
+                <h5 className="text-success fw-semibold">Contractor Licence</h5>
+            </div>
+            <Row>
+                <Col lg={6}>
+                    <Card className="border-0 rounded-4 p-4">
+                        <div className="d-flex flex-column gap-3 mb-3 align-items-center">
+                            <Image
+                                src={contractorData.profile_url}
+                                width={150}
+                                height={150}
+                                className="rounded-5"
+                                alt="Contractor"
+                            />
+                            <div className="text-center d-flex flex-column gap-1">
+                                <h4 className="fw-bold mb-1">{contractorData.name}</h4>
+                                <strong className="mb-1 text-muted">{contractorData.email}</strong>
+                                <h6 className="mb-1 text-muted">{contractorData.address.address}</h6>
+                                <p className="mb-1 text-muted">{contractorData.mobile_country_code}-{contractorData.mobile_number}</p>
+                            </div>
                         </div>
-                        <Row>
-                            <Col lg={6}>
-                                <Card className="border-0 rounded-4 p-4">
-                                    <div className="d-flex flex-column gap-3 mb-3 align-items-center">
-                                        <Image
-                                            src={contractorData.profile_url}
-                                            width={150}
-                                            height={150}
-                                            className="rounded-5"
-                                            alt="Contractor"
-                                        />
-                                        <div className="text-center d-flex flex-column gap-1">
-                                            <h4 className="fw-bold mb-1">{contractorData.name}</h4>
-                                            <strong className="mb-1 text-muted">{contractorData.email}</strong>
-                                            <h6 className="mb-1 text-muted">{contractorData.address.address}</h6>
-                                            <p className="mb-1 text-muted">{contractorData.mobile_country_code}-{contractorData.mobile_number}</p>
+                        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-2">
+                            <h6 className="fw-bold mb-2 text-start">Services</h6>
+                            <ChatIcon />
+                        </div>
+                        <Row className="g-2 mb-2">
+                            {contractorData.services.map((service) => (
+                                <Col sm={6} key={service.service_name}>
+                                    <Card className="border-1 rounded-4 p-3 text-center">
+                                        <div className="d-flex align-items-center gap-2 justify-content-start">
+                                            {service.icon}
+                                            <span>{service.service_name}</span>
                                         </div>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-2">
-                                        <h6 className="fw-bold mb-2 text-start">Services</h6>
-                                        <ChatIcon />
-                                    </div>
-                                    <Row className="g-2 mb-2">
-                                        {contractorData.services.map((service) => (
-                                            <Col sm={6} key={service.service_name}>
-                                                <Card className="border-1 rounded-4 p-3 text-center">
-                                                    <div className="d-flex align-items-center gap-2 justify-content-start">
-                                                        {service.icon}
-                                                        <span>{service.service_name}</span>
-                                                    </div>
-                                                </Card>
-                                            </Col>
-                                        ))}
-                                    </Row>
-
-                                    <div>
-                                        <h6 className="fw-bold mb-2 text-start">Who we are</h6>
-                                        <p className="text-muted text-start mb-0">
-                                            Autumn Phillips is an experienced contractor specializing in kitchen, bedroom, and plumbing services.
-                                            Delivering high-quality renovations with a professional and timely approach.
-                                        </p>
-                                    </div>
-                                </Card>
-                            </Col>
-
-                            <Col lg={6}>
-                                <Card className="border-0 rounded-4 p-4 h-100">
-                                    <Row className="g-2 mt-3">
-                                        {galleryImages.map((item, index) => (
-                                            <Col xs={3} key={index}>
-                                                <div className="media-wrapper rounded-3 overflow-hidden mb-1 position-relative">
-                                                    <img
-                                                        src={item.img}
-                                                        alt={item.name}
-                                                        className="object-fit-cover"
-                                                    />
-                                                    <div className="media-icon">
-                                                        {item.type === "video" ? (
-                                                            <VideoIcon />
-                                                        ) : (
-                                                            <MultiImageIcon />
-                                                        )}
-                                                    </div>
-                                                </div>
-
-                                                <div
-                                                    className="small fw-medium text-truncate"
-                                                    title={item.name}
-                                                >
-                                                    {item.name}
-                                                </div>
-                                            </Col>
-                                        ))}
-                                    </Row>
-
-                                </Card>
-                            </Col>
+                                    </Card>
+                                </Col>
+                            ))}
                         </Row>
 
-                    </div>
-                </div>
-            </div>
+                        <div>
+                            <h6 className="fw-bold mb-2 text-start">Who we are</h6>
+                            <p className="text-muted text-start mb-0">
+                                Autumn Phillips is an experienced contractor specializing in kitchen, bedroom, and plumbing services.
+                                Delivering high-quality renovations with a professional and timely approach.
+                            </p>
+                        </div>
+                    </Card>
+                </Col>
+
+                <Col lg={6}>
+                    <Card className="border-0 rounded-4 p-4 h-100">
+                        <Row className="g-2 mt-3">
+                            {galleryImages.map((item, index) => (
+                                <Col xs={3} key={index}>
+                                    <div className="media-wrapper rounded-3 overflow-hidden mb-1 position-relative">
+                                        <img
+                                            src={item.img}
+                                            alt={item.name}
+                                            className="object-fit-cover"
+                                        />
+                                        <div className="media-icon">
+                                            {item.type === "video" ? (
+                                                <VideoIcon />
+                                            ) : (
+                                                <MultiImageIcon />
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="small fw-medium text-truncate"
+                                        title={item.name}
+                                    >
+                                        {item.name}
+                                    </div>
+                                </Col>
+                            ))}
+                        </Row>
+
+                    </Card>
+                </Col>
+            </Row>
+
         </div>
 
     );

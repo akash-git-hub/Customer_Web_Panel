@@ -30,11 +30,11 @@ const LicenseVerificationDetail = () => {
 
     return (
         <div className="d-flex min-vh-100">
-            <div className="sidebar-wrapper">
+            {/* <div className="sidebar-wrapper">
                 <Sidebar active={active} onLinkClick={setActive} />
-            </div>
+            </div> */}
             <div className="flex-grow-1">
-                <Header />
+                {/* <Header /> */}
 
                 <div className="p-4">
                     <div className="d-flex align-items-center mb-4">

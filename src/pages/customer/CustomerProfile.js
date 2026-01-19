@@ -90,11 +90,11 @@ const CustomerProfile = () => {
         <>
             <Loader show={loading} />
             <div className="d-flex min-vh-100">
-                <div className="sidebar-wrapper">
+                {/* <div className="sidebar-wrapper">
                     <Sidebar />
-                </div>
+                </div> */}
                 <div className="flex-grow-1 overflow-hidden">
-                    <Header />
+                    {/* <Header /> */}
                     <div className="p-4">
                         <div className="d-flex align-items-center justify-content-between mb-4">
                             <div className="d-flex align-items-center">

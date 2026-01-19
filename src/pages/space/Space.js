@@ -88,85 +88,75 @@ const Space = () => {
     ];
 
     return (
-        <div className="d-flex min-vh-100">
-            <Sidebar />
+        <Container fluid className="p-4">
 
-            <div className="flex-grow-1">
-                <div className="right-side-color">
-                    <Header buttonText={'Create Project'} />
+            {/* ===== PAGE TITLE ===== */}
+            <h3 className="fw-bold mb-3 text-start">Space</h3>
 
-                    <Container fluid className="p-4">
+            {/* ===== OFFERS ===== */}
+            <h6 className="fw-semibold mb-2 text-start">Offers</h6>
+            <Stack direction="horizontal" gap={3} className="mb-4 overflow-auto justify-content-between">
+                {offers.map((img, i) => (
+                    <Image
+                        key={i}
+                        src={img}
+                        rounded="4"
+                        style={{ width: 360, height: 150, objectFit: "cover" }}
+                    />
+                ))}
+            </Stack>
 
-                        {/* ===== PAGE TITLE ===== */}
-                        <h3 className="fw-bold mb-3 text-start">Space</h3>
+            {/* ===== POPULAR SERVICES ===== */}
+            <h6 className="fw-semibold mb-2 text-start">Popular Services</h6>
+            <Stack direction="horizontal" gap={3} className="mb-4 flex-wrap">
+                {services.map((s, i) => (
+                    <Badge
+                        key={i}
+                        pill
+                        bg="light"
+                        text="dark"
+                        className="px-3 py-2 d-flex align-items-center gap-2 service-badge"
+                    >
+                        {s.icon}
+                        {s.label}
+                    </Badge>
+                ))}
+            </Stack>
 
-                        {/* ===== OFFERS ===== */}
-                        <h6 className="fw-semibold mb-2 text-start">Offers</h6>
-                        <Stack direction="horizontal" gap={3} className="mb-4 overflow-auto justify-content-between">
-                            {offers.map((img, i) => (
-                                <Image
-                                    key={i}
-                                    src={img}
-                                    rounded="4"
-                                    style={{ width: 360, height: 150, objectFit: "cover" }}
-                                />
-                            ))}
-                        </Stack>
-
-                        {/* ===== POPULAR SERVICES ===== */}
-                        <h6 className="fw-semibold mb-2 text-start">Popular Services</h6>
-                        <Stack direction="horizontal" gap={3} className="mb-4 flex-wrap">
-                            {services.map((s, i) => (
-                                <Badge
-                                    key={i}
-                                    pill
-                                    bg="light"
-                                    text="dark"
-                                    className="px-3 py-2 d-flex align-items-center gap-2 service-badge"
-                                >
-                                    {s.icon}
-                                    {s.label}
-                                </Badge>
-                            ))}
-                        </Stack>
-
-                        {/* ===== MY PROJECTS ===== */}
-                        <div className="d-flex justify-content-between align-items-center mb-2">
-                            <h6 className="fw-semibold text-start">My Projects</h6>
-                            <span className="text-muted"><RightArrowIcon/></span>
-                        </div>
-
-                        <Stack direction="horizontal" gap={5} className="mb-4 overflow-auto">
-                            {projects.map((p, i) => (
-                                <div key={i} className="text-center">
-                                    <Image
-                                        src={p.img}
-                                        rounded="5"
-                                        style={{ width: 100, height: 120, objectFit: "cover" }}
-                                    />
-                                    <small className="d-block mt-2">{p.title}</small>
-                                </div>
-                            ))}
-                        </Stack>
-
-                        {/* ===== SPACES / POSTS ===== */}
-                          <div className="d-flex justify-content-between align-items-center mb-2">
-                            <h6 className="fw-semibold text-start">Space</h6>
-                            <span className="text-muted"><RightArrowIcon/></span>
-                        </div>
-
-                        <div className="row">
-                            {posts.map((post) => (
-                                <div className="col-md-3" key={post.id}>
-                                    <PostCard post={post} />
-                                </div>
-                            ))}
-                        </div>
-
-                    </Container>
-                </div>
+            {/* ===== MY PROJECTS ===== */}
+            <div className="d-flex justify-content-between align-items-center mb-2">
+                <h6 className="fw-semibold text-start">My Projects</h6>
+                <span className="text-muted"><RightArrowIcon /></span>
             </div>
-        </div>
+
+            <Stack direction="horizontal" gap={5} className="mb-4 overflow-auto">
+                {projects.map((p, i) => (
+                    <div key={i} className="text-center">
+                        <Image
+                            src={p.img}
+                            rounded="5"
+                            style={{ width: 100, height: 120, objectFit: "cover" }}
+                        />
+                        <small className="d-block mt-2">{p.title}</small>
+                    </div>
+                ))}
+            </Stack>
+
+            {/* ===== SPACES / POSTS ===== */}
+            <div className="d-flex justify-content-between align-items-center mb-2">
+                <h6 className="fw-semibold text-start">Space</h6>
+                <span className="text-muted"><RightArrowIcon /></span>
+            </div>
+
+            <div className="row">
+                {posts.map((post) => (
+                    <div className="col-md-3" key={post.id}>
+                        <PostCard post={post} />
+                    </div>
+                ))}
+            </div>
+
+        </Container>
     );
 };
 

@@ -307,13 +307,7 @@ const ChatMessages = () => {
 
     return (
         <div className="d-flex min-vh-100">
-            <div className="sidebar-wrapper">
-                <Sidebar />
-            </div>
-
             <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-                <Header />
-
                 <div className="flex-grow-1 p-4 d-flex flex-column overflow-hidden">
                     <h3 className="fw-bold mb-3 text-start">Messages</h3>
 

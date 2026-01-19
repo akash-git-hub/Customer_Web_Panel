@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
-import Sidebar from "../../component/Sidebar";
-import Header from "../../component/Header";
 import ContractorCard from "../../component/ContractorCard";
 import SearchIcon from "../../Icon/SearchIcon";
 import FencingIcon from "../../Icon/FencingIcon";
@@ -114,72 +112,63 @@ const SearchContractor = () => {
     });
 
     return (
-        <div className="d-flex">
-            <Sidebar />
-
-            <div className="flex-grow-1 overflow-hidden">
-                <div className="right-side-color p-2">
-                    <Header buttonText={'Create Project'}/>
-                    <Container fluid className="py-4 px-4">
-                        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                            <h4 className="fw-semibold mb-4 text-start">Search Contractor</h4>
-                            <div className="d-flex align-items-center gap-3">
-                                <span className="fw-medium">Radius ({radius}-Miles)</span>
-                                <Form.Range
-                                    min={1}
-                                    max={50}
-                                    value={radius}
-                                    onChange={(e) => setRadius(e.target.value)}
-                                    className="radius-slider"
-                                />
-                            </div>
-                        </div>
-
-
-                        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                            <div className="d-flex gap-1 flex-wrap justify-content-between">
-                                {filters.map((filter) => {
-                                    const isActive = activeFilter === filter.label;
-                                    const Icon = filter.icon;
-
-                                    return (
-                                        <button
-                                            key={filter.label}
-                                            onClick={() => setActiveFilter(filter.label)}
-                                            className={`filter-pill d-flex align-items-center gap-2 ${isActive ? "active" : ""
-                                                }`}
-                                        >
-                                            <Icon color={isActive ? "#fff" : "#7a7a7a"} />
-                                            <span>{filter.label}</span>
-                                        </button>
-                                    );
-                                })}
-                                <div className="search-wrapper">
-                                    <SearchIcon />
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Search contractor..."
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                        className="search-input"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="contractor-grid mt-4">
-                            {filteredContractors.map((contractor) => (
-                                <ContractorCard
-                                    key={contractor.id}
-                                    contractor={contractor}
-                                    isActive={contractor.name === "Stephanie Nicol"}
-                                />
-                            ))}
-                        </div>
-                    </Container>
+        <Container fluid className="py-4 px-4">
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <h4 className="fw-semibold mb-4 text-start">Search Contractor</h4>
+                <div className="d-flex align-items-center gap-3">
+                    <span className="fw-medium">Radius ({radius}-Miles)</span>
+                    <Form.Range
+                        min={1}
+                        max={50}
+                        value={radius}
+                        onChange={(e) => setRadius(e.target.value)}
+                        className="radius-slider"
+                    />
                 </div>
             </div>
-        </div>
+
+
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div className="d-flex gap-1 flex-wrap justify-content-between">
+                    {filters.map((filter) => {
+                        const isActive = activeFilter === filter.label;
+                        const Icon = filter.icon;
+
+                        return (
+                            <button
+                                key={filter.label}
+                                onClick={() => setActiveFilter(filter.label)}
+                                className={`filter-pill d-flex align-items-center gap-2 ${isActive ? "active" : ""
+                                    }`}
+                            >
+                                <Icon color={isActive ? "#fff" : "#7a7a7a"} />
+                                <span>{filter.label}</span>
+                            </button>
+                        );
+                    })}
+                    <div className="search-wrapper">
+                        <SearchIcon />
+                        <Form.Control
+                            type="text"
+                            placeholder="Search contractor..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="search-input"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div className="contractor-grid mt-4">
+                {filteredContractors.map((contractor) => (
+                    <ContractorCard
+                        key={contractor.id}
+                        contractor={contractor}
+                        isActive={contractor.name === "Stephanie Nicol"}
+                    />
+                ))}
+            </div>
+        </Container>
     );
 };
 

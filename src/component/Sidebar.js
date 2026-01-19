@@ -14,20 +14,9 @@ import SearchIcon from "../Icon/SearchIcon";
 import UserProfileCard from "./UserProfileCard";
 
 const Sidebar = () => {
-  const { setLoggedIn, setProfileData } = useContext(AuthContext);
+  const { setLoggedIn, setProfileData, profileData } = useContext(AuthContext);
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
-
-  const profileData = useMemo(() => {
-    try {
-      const data = localStorage.getItem(
-        `${process.env.REACT_APP_STORAGE_PREFIX}profileData`
-      );
-      return data ? JSON.parse(data) : {};
-    } catch (err) {
-      return {};
-    }
-  }, []);
 
   console.log(profileData?.profile_url)
 

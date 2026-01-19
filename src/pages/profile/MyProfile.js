@@ -29,10 +29,8 @@ const MyProfile = () => {
 
     return (
         <div className="d-flex min-vh-100">
-            <Sidebar />
             <div className="flex-grow-1 overflow-auto">
                 <div className="right-side-color p-2">
-                    <Header />
                     <div className="p-4">
                         <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
                             <h4 className="fw-semibold mb-4 text-start">My Profile</h4>
