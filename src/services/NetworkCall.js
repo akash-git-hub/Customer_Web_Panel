@@ -74,6 +74,18 @@ const getRequest = async (path) => {
     return res;
 };
 
+const buildQueryString = (params = {}) => {
+    const query = Object.entries(params)
+        .filter(([_, value]) => value !== "" && value !== null && value !== undefined)
+        .map(
+            ([key, value]) =>
+                `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join("&");
+
+    return query ? `?${query}` : "";
+};
+
 //common login api for admin and super visor
 export const login = async (data) => {
     const path = "auth/login";
@@ -99,6 +111,18 @@ export const fetchFeeds = async ({ page = 1, limit = 10, search = '', radius = '
     return await getRequest(path);
 
 };
+
+export const fetchService = async () => {
+    const path = `services`;
+    return await getRequest(path);
+}
+
+export const fetchContractors = async (params) => {
+    const queryString = buildQueryString(params);
+    const path = `contractor${queryString}`;
+    return await getRequest(path, { params });
+};
+
 
 
 // Not Used currently but may be used in future

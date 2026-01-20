@@ -1,124 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import ContractorCard from "../../component/ContractorCard";
 import SearchIcon from "../../Icon/SearchIcon";
-import FencingIcon from "../../Icon/FencingIcon";
-import PlumbingIcon from "../../Icon/PlumbingIcon";
-import FlooringIcon from "../../Icon/FlooringIcon";
-import MilestoneIcon from "../../Icon/MilestoneIcon";
-import BedRoomIcon from "../../Icon/BedroomIcon";
-import KitchenIcon from "../../Icon/KitchenIcon";
 import BoxIcon from "../../Icon/BoxIcon";
+import { fetchService, fetchContractors } from "../../services/NetworkCall";
 
 const SearchContractor = () => {
-    const [activeFilter, setActiveFilter] = useState("All");
+    // ---------------- SERVICES ----------------
+    const [services, setServices] = useState([]);
+    const [loadingServices, setLoadingServices] = useState(false);
+
+    // ---------------- CONTRACTORS ----------------
+    const [contractors, setContractors] = useState([]);
+    const [loadingContractors, setLoadingContractors] = useState(false);
+
+    // ---------------- FILTERS ----------------
+    const [activeFilter, setActiveFilter] = useState("all");
     const [search, setSearch] = useState("");
-    const [radius, setRadius] = useState(5);
+    const [radius, setRadius] = useState(0);
+    const [rating] = useState(""); // UI later
 
+    // ---------------- PAGINATION ----------------
+    const [page, setPage] = useState(1);
+    const [limit] = useState(10);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const contractorsData = [
-        {
-            id: 1,
-            name: "Autumn Phillips",
-            email: "autumn@phillips.com",
-            skills: ["Kitchen", "Plumbing", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=12",
-        },
-        {
-            id: 2,
-            name: "Stephanie Nicol",
-            email: "stephanie@nicol.com",
-            skills: ["Kitchen", "Plumbing", "Bedroom"],
-            rating: 5,
-            image: "https://i.pravatar.cc/300?img=11",
-        },
-        {
-            id: 3,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=13",
-        },
-        {
-            id: 4,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=14",
-        },
-        {
-            id: 5,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=15",
-        },
-        {
-            id: 6,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=16",
-        },
-        {
-            id: 7,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=17",
-        },
-        {
-            id: 8,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=18",
-        },
-        {
-            id: 9,
-            name: "John Dukes",
-            email: "john@dukes.com",
-            skills: ["Kitchen", "Bedroom"],
-            rating: 4,
-            image: "https://i.pravatar.cc/300?img=19",
-        },
-    ];
+    // ================= SERVICE LIST API (ONLY ONCE) =================
+    useEffect(() => {
+        const getServices = async () => {
+            try {
+                setLoadingServices(true);
+                const res = await fetchService();
+                setServices(res?.data || []);
+            } catch (error) {
+                console.error("Service API error", error);
+            } finally {
+                setLoadingServices(false);
+            }
+        };
 
-    const filters = [
-        { label: "All", icon: BoxIcon },
-        { label: "Kitchen", icon: KitchenIcon },
-        { label: "Bedroom", icon: BedRoomIcon },
-        { label: "Plumbing", icon: MilestoneIcon },
-        { label: "Flooring", icon: FlooringIcon },
-        { label: "Carpentry", icon: PlumbingIcon },
-        { label: "Fencing", icon: FencingIcon },
-    ];
+        getServices();
+    }, []);
 
+    // ================= SERVICE FILTERS (ALL + API) =================
+    const serviceFilters = useMemo(() => {
+        return [
+            {
+                id: "all",
+                display_name: "All",
+                icon_url: null
+            },
+            ...services
+        ];
+    }, [services]);
 
-    const filteredContractors = contractorsData.filter((c) => {
-        const matchSkill =
-            activeFilter === "All" || c.skills.includes(activeFilter);
+    // ================= RESET PAGE ON FILTER CHANGE =================
+    useEffect(() => {
+        setPage(1);
+    }, [activeFilter, search, radius]);
 
-        const matchSearch = c.name.toLowerCase().includes(search.toLowerCase());
+    // ================= CONTRACTOR API CALL =================
+    useEffect(() => {
+        const getContractors = async () => {
+            try {
+                setLoadingContractors(true);
 
-        return matchSkill && matchSearch;
-    });
+                const params = {
+                    radius,
+                    order_by: "nearest",
+                    service_ids: activeFilter === "all" ? "" : activeFilter,
+                    search: search || "",
+                    page,
+                    limit,
+                    all: false, // pagination needed
+                    rating: rating || ""
+                };
 
+                const res = await fetchContractors(params);
+                console.log(res)
+                setContractors(res?.data || []);
+                setTotalPages(res?.pagination?.total_pages || 1);
+            } catch (error) {
+                console.error("Contractor API error", error);
+            } finally {
+                setLoadingContractors(false);
+            }
+        };
+
+        getContractors();
+    }, [activeFilter, search, radius, page]);
+
+    // ================= UI =================
     return (
         <Container fluid className="py-4 px-4">
+            {/* HEADER */}
             <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <h4 className="fw-semibold mb-4 text-start">Search Contractor</h4>
+                <h4 className="fw-semibold mb-4 text-start">
+                    Search Contractor
+                </h4>
+
                 <div className="d-flex align-items-center gap-3">
-                    <span className="fw-medium">Radius ({radius}-Miles)</span>
+                    <span className="fw-medium">
+                        Radius ({radius}-Miles)
+                    </span>
                     <Form.Range
-                        min={1}
+                        min={0}
                         max={50}
                         value={radius}
                         onChange={(e) => setRadius(e.target.value)}
@@ -127,46 +113,105 @@ const SearchContractor = () => {
                 </div>
             </div>
 
-
+            {/* FILTERS + SEARCH */}
             <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <div className="d-flex gap-1 flex-wrap justify-content-between">
-                    {filters.map((filter) => {
-                        const isActive = activeFilter === filter.label;
-                        const Icon = filter.icon;
+                <div className="d-flex gap-1 flex-wrap align-items-center">
+                    {loadingServices ? (
+                        <span className="text-muted px-2">
+                            Loading services...
+                        </span>
+                    ) : (
+                        serviceFilters.map((service) => {
+                            const isActive =
+                                activeFilter === service.id;
 
-                        return (
-                            <button
-                                key={filter.label}
-                                onClick={() => setActiveFilter(filter.label)}
-                                className={`filter-pill d-flex align-items-center gap-2 ${isActive ? "active" : ""
+                            return (
+                                <button
+                                    key={service.id}
+                                    onClick={() =>
+                                        setActiveFilter(service.id)
+                                    }
+                                    className={`filter-pill d-flex align-items-center gap-2 ${
+                                        isActive ? "active" : ""
                                     }`}
-                            >
-                                <Icon color={isActive ? "#fff" : "#7a7a7a"} />
-                                <span>{filter.label}</span>
-                            </button>
-                        );
-                    })}
-                    <div className="search-wrapper">
+                                >
+                                    {service.icon_url ? (
+                                        <img
+                                            src={service.icon_url}
+                                            alt={service.display_name}
+                                            width={18}
+                                            height={18}
+                                        />
+                                    ) : (
+                                        <BoxIcon
+                                            color={
+                                                isActive
+                                                    ? "#fff"
+                                                    : "#7a7a7a"
+                                            }
+                                        />
+                                    )}
+                                    <span>
+                                        {service.display_name}
+                                    </span>
+                                </button>
+                            );
+                        })
+                    )}
+
+                    {/* SEARCH */}
+                    <div className="search-wrapper ms-2">
                         <SearchIcon />
                         <Form.Control
                             type="text"
                             placeholder="Search contractor..."
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(e) =>
+                                setSearch(e.target.value)
+                            }
                             className="search-input"
                         />
                     </div>
                 </div>
             </div>
 
+            {/* CONTRACTOR LIST */}
             <div className="contractor-grid mt-4">
-                {filteredContractors.map((contractor) => (
-                    <ContractorCard
-                        key={contractor.id}
-                        contractor={contractor}
-                        isActive={contractor.name === "Stephanie Nicol"}
-                    />
-                ))}
+                {loadingContractors ? (
+                    <p>Loading contractors...</p>
+                ) : contractors.length === 0 ? (
+                    <p className="text-muted">
+                        No contractors found
+                    </p>
+                ) : (
+                    contractors.map((contractor) => (
+                        <ContractorCard
+                            key={contractor.id}
+                            contractor={contractor}
+                        />
+                    )) 
+                )}
+            </div>
+
+            {/* PAGINATION */}
+            <div className="d-flex justify-content-center gap-3 mt-4">
+                <button
+                    disabled={page === 1}
+                    onClick={() => setPage(page - 1)}
+                >
+                    Prev
+                </button>
+
+                <span>
+                    Page {page} of {totalPages}
+                </span>
+
+                <button
+                    disabled={page === totalPages}
+                    onClick={() => setPage(page + 1)}
+                >
+                    Next
+                </button>
             </div>
         </Container>
     );
