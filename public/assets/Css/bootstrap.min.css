@@ -14552,14 +14552,14 @@ input.chat-input {
     border: none;
     color: #000;
     border-radius: 25px;
-    padding: 8px 20px;
     margin-right: 25px;
     font-weight: 500;
     background: #ffffff;
+    padding: 12px 30px;
 }
 
 .custom-tabs .nav-link.active {
-    background: #ffcc00 !important;
+    background: #F3DBA5 !important;
     color: #000 !important;
     border-radius: 25px;
 }
